@@ -33,8 +33,14 @@ public class QueueImpl<E> implements Queue<E>{
             logger.error("Cua buida");
             throw new EmptyQueueException();
         }
-        E element = this.data[--this.p];
-        this.data[this.p] = null;
+        E element = this.data[0];
+
+        for (int i = 1; i < this.p; i++) {
+            this.data[i-1] = this.data[i];
+        }
+
+        this.data[--this.p] = null;
+
         logger.info("post: element extret "+ element);
         return element;
     }
